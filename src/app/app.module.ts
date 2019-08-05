@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {FormsModule} from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppareilComponent } from './appareil/appareil.component';
@@ -10,8 +10,12 @@ import { SingleAppareilsComponent } from './single-appareils/single-appareils.co
 import { PageNotfondComponent } from './page-notfond/page-notfond.component';
 import { AppareilService } from './services/appareil.service';
 import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './services/auth-guard.service';
+ 
+ 
+import { EditAppareilComponentComponent } from './edit-appareil-component/edit-appareil-component.component';
+import { AuthGaurdGuard } from './services/auth-guard.service';
 
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,13 +23,17 @@ import { AuthGuardService } from './services/auth-guard.service';
     AppareilViewComponent,
     AuthComponent,
     SingleAppareilsComponent,
-    PageNotfondComponent
+    PageNotfondComponent,
+    EditAppareilComponentComponent,
+ 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+ 
   ],
-  providers: [AppareilService,AuthService, AuthGuardService],
+  providers: [AppareilService,AuthService,AuthGaurdGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

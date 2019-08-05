@@ -18,4 +18,13 @@ export class SingleAppareilsComponent implements OnInit {
     this.status=this.appareilservice.getAppareilsbyID(+id).status;
   }
 
+  getColor(){
+    if(this.status==="Etient")
+    {
+      return 'red';
+    }else{
+      return 'green';
+    }
+  }
+
 }

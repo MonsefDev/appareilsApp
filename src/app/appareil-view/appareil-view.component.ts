@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppareilService } from '../services/appareil.service';
+import { Subscription } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-appareil-view',
   templateUrl: './appareil-view.component.html',
@@ -21,6 +23,7 @@ isAuth = false;
   );
 
  appareils:any[];
+ appareilsSubscription:Subscription;
 constructor(private appareilservice:AppareilService){
   setTimeout(
     callback=>{
@@ -30,7 +33,13 @@ constructor(private appareilservice:AppareilService){
   }
 
   ngOnInit(){
-    this.appareils=this.appareilservice.appareils;
+    this.appareilsSubscription=this.appareilservice.appareilSubject.subscribe(
+      (appareils:any[])=>{
+        this.appareils=appareils;
+      }
+    );
+
+    this.appareilservice.emittAppareilSubject();
 
   }
 
