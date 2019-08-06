@@ -50,4 +50,12 @@ constructor(private appareilservice:AppareilService){
   onetindre(){
         this.appareilservice.switchOffAll();
   }
+
+
+  onsave(){
+    this.appareilservice.saveApperilsToServer();
+  }
+  onfetch(){
+    this.appareilservice.getAppareilsFromServer();
+  }
 }

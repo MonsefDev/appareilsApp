@@ -19,9 +19,9 @@ export class EditAppareilComponentComponent implements OnInit {
   onSubmit(form:NgForm){
     const name=form.value['name'];
     const status=form.value['status'];
-    // console.log(name);
-    // this.appareilService.addAppareils(name,status);
-    this.router.navigate['appareils'];
+    console.log(name);
+    let test=this.appareilService.addAppareils(name,status);
+    this.router.navigate(['/appareils']);
    }
 
 

@@ -1,28 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SlicePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+ 
 
 @Injectable()
 export class AppareilService {
   appareilSubject =new Subject<any[]>();
-  private  appareils=[{
-      id:1,
-    name:"machine a laver",
-    status:"Etient"
-  },
-  {
-     id:2,
-    name:"TV",
-    status:"Allumer"
-  },
-  {
-     id:3,
-    name:"PC",
-    status:"Allumer"
-  }
-
+  private  appareils=[
   ];
-  constructor() { }
+  constructor(private httpclient:HttpClient) { }
 
   getAppareilsbyID(id:number){
     const appareil=this.appareils.find(
@@ -72,8 +59,41 @@ export class AppareilService {
     appareilObject.name=name;
     appareilObject.status=status;
     appareilObject.id=this.appareils[(this.addAppareils.length-1)].id+1;
-    
-    this.appareils.push(appareilObject);
+    console.log(appareilObject);
+    this.appareils.push({
+      id:appareilObject.id,
+      name:appareilObject.name,
+      status:appareilObject.status
+    });
+   
     this.emittAppareilSubject(); 
+  }
+
+  saveApperilsToServer(){
+    this.httpclient.put('https://appareilsapp.firebaseio.com/appareils.json',this.appareils)
+    .subscribe(
+        ()=>{
+          console.log('Enregistrement Terminé');
+        },
+        (error)=> {
+          console.log('Error de sauvegrdage'+error);
+        }
+    )
+  }
+
+
+  getAppareilsFromServer(){
+    this.httpclient.get<any[]>('https://appareilsapp.firebaseio.com/appareils.json')
+    .subscribe(
+      (response)=>{
+       this.appareils=response;
+       this.emittAppareilSubject();
+      },
+      (error)=> {
+        console.log('Error de chargement'+error);
+      }
+    )
+
+ 
   }
 }

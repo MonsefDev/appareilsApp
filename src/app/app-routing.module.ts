@@ -6,6 +6,8 @@ import { SingleAppareilsComponent } from './single-appareils/single-appareils.co
 import { PageNotfondComponent } from './page-notfond/page-notfond.component';
 import { EditAppareilComponentComponent } from './edit-appareil-component/edit-appareil-component.component';
 import { AuthGaurdGuard } from './services/auth-guard.service';
+import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 const routes: Routes = [
   {path:'appareils',canActivate:[AuthGaurdGuard],component:AppareilViewComponent},
@@ -13,6 +15,8 @@ const routes: Routes = [
   {path:'appareils/:id',canActivate:[AuthGaurdGuard],component:SingleAppareilsComponent},
   {path:'',component:AppareilViewComponent},
   {path:'edit',component:EditAppareilComponentComponent},
+  {path:'new-user',component:NewUserComponent},
+  {path:'users',component:UserListComponent},
   {path:'not-found',component:PageNotfondComponent},
   {path:'**',redirectTo:'/not-found'},
 
